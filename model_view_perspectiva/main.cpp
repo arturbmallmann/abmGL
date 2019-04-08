@@ -33,12 +33,12 @@ void renderCoordinateAxis()
 	glColor3f(0, 1, 0);
 	glBegin(GL_LINES);
 		// Left side, negative X
-		glVertex2f(-10.0, 0.0);
+		glVertex2f(-100.0, 0.0);
 		glVertex2f(0.0, 0.0);
 
 		// Right side, positive X
 		glVertex2f(0.0, 0.0);
-		glVertex2f(10.0, 0.0);
+		glVertex2f(100.0, 0.0);
 	glEnd();
 
 	// Y axis - blue color
@@ -46,23 +46,26 @@ void renderCoordinateAxis()
 	glBegin(GL_LINES);
 		// Top side, positive Y
 		glVertex2f(0.0, 0.0);
-		glVertex2f(0.0, 10.0);
+		glVertex2f(0.0, 100.0);
 
 		// Bottom side, negative Y
 		glVertex2f(0.0, 0.0);
-		glVertex2f(0.0, -10.0);
+		glVertex2f(0.0, -100.0);
 	glEnd();
 }
 
 void display()
 {
 	// Move the camera away from the origin along the Z axis by 10 pixels.
-	glTranslatef(0, 0, -10.0f);
+	glTranslatef(0, 0, -20.0f);
 
-	glRotatef(sin(gValueR) * 90.0f, 0.0f, 1.0f, 0.0f);
+
+	renderCoordinateAxis();
+	glRotatef(sin(gValueR*2) * 180.0f, 0.0f, 1.0f, 0.0f);
+	glRotatef(sin(gValueR*3) * 180.0f, 0.0f, 0.0f, 1.0f);
+	glRotatef(sin(gValueR*2) * 180.0f, 0.30f, 0.0f, 0.0f);
 	glScalef(sin(gValueR) * 2 + 0.5f,sin(gValueR) * 2 + 0.5f,sin(gValueR) * 2 + 0.5f);
 	// Render the X and Y axis to guide ourselves.
-	renderCoordinateAxis();
 
 	// Render a square using the informed color.
 	GLfloat r = sin(gValueR);
@@ -70,6 +73,7 @@ void display()
 	GLfloat b = sin(gValueB);
 	glColor3f(r, g, b);
 	glRectf(-1.0f, 1.0f, 1.0f, -1.0f);
+	glutWireTeapot(2);
 }
 
 // This function is called periodically. The param delta contains the time
