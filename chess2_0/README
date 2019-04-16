@@ -1,0 +1,7 @@
+para compilar simplesmente execute:
+make all
+
+para executar:
+make test
+ou
+LD_LIBRARY_PATH=../lib/chess:$LD_LIBRARY_PATH ./main
