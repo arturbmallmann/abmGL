@@ -1,7 +1,7 @@
 #ifndef TORRE_H
 #define TORRE_H
-#include "Position.h" 
-class Torre(AbstractPiece){
+#include "AbstractPiece.h"
+class Torre: public AbstractPiece{
 	public:
 		void update();
 

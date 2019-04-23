@@ -4,13 +4,14 @@ CFLAGS = -g -Wall -Wno-deprecated
 
 INCLUDES = -I$(MYLIBS)
 MYSHARED = -L$(MYLIBS)
-LIBS = -lglfw -lGL -lm -lX11 -lglut -lGLU -labmgl
+
+LIBS = -lglfw -lGL -lm -lX11 -lglut -lGLU -lmyforms -lPosition -lTorre 
 
 main: main.o
-	$(CC) $(MYSHARED) $(INCLUDES) $(CFLAGS) $< -o $@ $(LIBS)
+	$(CC) $(MYSHARED) $(CFLAGS) $< -o $@ $(LIBS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(INCLUDES) $(CFLAGS) -c $<
 test: 
 	LD_LIBRARY_PATH=$(MYLIBS):$LD_LIBRARY_PATH exec ./main
 clean:

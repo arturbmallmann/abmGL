@@ -29,6 +29,12 @@ GLfloat gValueB = 0.0f;
 
 void renderCoordinateAxis()
 {
+	//Z
+	glColor3f(1,0,0);
+	glBegin(GL_LINES);
+		glVertex3f(0.0,0.0,-100);
+		glVertex3f(0.0,0.0,100);
+	glEnd();
 	// X axis - green color
 	glColor3f(0, 1, 0);
 	glBegin(GL_LINES);
@@ -52,28 +58,76 @@ void renderCoordinateAxis()
 		glVertex2f(0.0, 0.0);
 		glVertex2f(0.0, -100.0);
 	glEnd();
+	
 }
 
+void piramid(){
+	glPushMatrix();
+	for(int i=0;i<4;i++){
+		glRotatef(90,0,1,0);
+		glPushMatrix();
+			glColor3d((i%2)*255,(i%3)*255,(i%4)*255);
+//			glRotatef(45,1,0,0);
+//			glTranslatef(0,);	
+			glBegin(GL_TRIANGLES);
+				glVertex3f(0,0,0);
+				glVertex3f(-1,-1,-1);
+				glVertex3f(1,-1,-1);
+
+			glEnd();
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+static const double chess_size = 28;
+static const double scale = 0.4;
+int color=0;
+void chess(){
+	glPushMatrix();
+	glRotatef(90,1.0f,0,0);
+	glScalef(scale,scale,scale);
+	glTranslatef(-(chess_size/2)-1, -(chess_size/2)-1,0);
+	for(int x=0; x<chess_size; x++){
+		glTranslatef(0,1,0);
+		glPushMatrix();
+		for(int z=0; z<chess_size; z++){
+				color=(x+z)%2;	
+				glColor3f(0,0,color);
+				glTranslatef(1,0,0);
+
+				glRectf(0,0,1,1);
+		}
+		glPopMatrix();
+	}
+	glLoadIdentity();
+	glPopMatrix();
+}
+
+
+
+double z=-10;
+double angle=0;
+double tempo = 0;
 void display()
 {
 	// Move the camera away from the origin along the Z axis by 10 pixels.
-	glTranslatef(0, 0, -20.0f);
-
+	
 
 	renderCoordinateAxis();
-	glRotatef(sin(gValueR*2) * 180.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(sin(gValueR*3) * 180.0f, 0.0f, 0.0f, 1.0f);
-	glRotatef(sin(gValueR*2) * 180.0f, 0.30f, 0.0f, 0.0f);
-	glScalef(sin(gValueR) * 2 + 0.5f,sin(gValueR) * 2 + 0.5f,sin(gValueR) * 2 + 0.5f);
-	// Render the X and Y axis to guide ourselves.
+// Render the X and Y axis to guide ourselves.
 
 	// Render a square using the informed color.
 	GLfloat r = sin(gValueR);
 	GLfloat g = sin(gValueG);
 	GLfloat b = sin(gValueB);
 	glColor3f(r, g, b);
-	glRectf(-1.0f, 1.0f, 1.0f, -1.0f);
+	chess();
+	glTranslatef(0,1.5,0);
 	glutWireTeapot(2);
+	glTranslatef(0,1.5,0);
+	glRotatef(180,1,0,1);
+	piramid();
 }
 
 // This function is called periodically. The param delta contains the time
@@ -84,6 +138,14 @@ void update(double delta)
 	gValueR += (GLfloat)delta;
 	gValueG += (GLfloat)(delta * 1.3);
 	gValueB += (GLfloat)(delta * 1.5);
+	if (tempo<= 5){
+		tempo+=delta;
+		std::cout<<"tempo: "<<tempo<<'\n';
+		z+=0.02;
+	}else if(angle<1080){
+		angle+=6;
+	}
+	std::cout<<"angle:"<<angle<<'\n';	
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -91,6 +153,11 @@ void keyboard(unsigned char key, int x, int y)
 	if (key == 27) {
 		// ESC key
 		exit(0);
+	}
+	if (key == ' '){
+		z=-10;
+		tempo=0;
+		angle=0;
 	}
 }
 
@@ -111,6 +178,9 @@ void internalDisplay()
 	glLoadIdentity();
 
 	// Call our display() function
+	glTranslatef(0,-1,z);
+	glRotatef(20,1.0f,0.0f,0.0f);
+	glRotatef(angle,0.0f,1.0f,0.0f);
 	display();
 
 	// Start the rendering on a new frame
@@ -147,7 +217,7 @@ void initView()
 
 	// Reset any existing projection settings and adjust the field-of-view (FOV)
 	glLoadIdentity();
-	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 200.0);
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 100.0);
 
 	// From now on, every transformation is to be applied on each object, e.g. modelview.
 	glMatrixMode(GL_MODELVIEW);
