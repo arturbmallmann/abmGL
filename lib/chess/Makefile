@@ -5,7 +5,7 @@ CFLAGS = -g -Wall -Wno-deprecated
 #all: Position.o AbstractPiece.o SimpleForms.o
 #	$(CC) $(CFLAGS) $< -shared -o libabmgl.so $(LIBS)
 	
-all: SimpleForms Position AbstractPiece Torre
+all: Torre SimpleForms Position AbstractPiece
 
 Torre: Torre.o AbstractPiece.o
 	$(CC) $(CFLAGS) $< -shared -o libTorre.so $(LIBS)

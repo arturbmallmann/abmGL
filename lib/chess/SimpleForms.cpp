@@ -11,13 +11,28 @@ void piramid(){
     glVertex3f(0,0,0);
     glVertex3f(-1,-1,-1);
     glVertex3f(1,-1,-1);
-
    glEnd();
   glPopMatrix();
  }
  glPopMatrix();
 }
 
+void cube(double size,unsigned int* data){
+	glPushMatrix();
+	for(int i=0;i<4;i++){
+		glRotatef(90,1,0,0);
+		glPushMatrix();
+			glTranslatef(-size/2,-size/2,-size/2);
+			glBegin(GL_QUADS);
+					glVertex2f(0,0);
+					glVertex2f(0,size);
+					glVertex2f(size,size);
+					glVertex2f(size,0);
+			glEnd();
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
 void chessTable(double scale,double chess_size){
  double color=0;
  glPushMatrix();

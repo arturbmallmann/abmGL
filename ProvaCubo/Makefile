@@ -5,7 +5,7 @@ CFLAGS = -g -Wall -Wno-deprecated
 INCLUDES = -I$(MYLIBS)
 MYSHARED = -L$(MYLIBS)
 
-LIBS = -lglfw -lGL -lm -lX11 -lglut -lGLU -lmyforms  -lTorre 
+LIBS = -lglfw -lGL -lm -lX11 -lglut -lGLU -lSimpleForms
 
 main: main.o
 	$(CC) $(MYSHARED) $(CFLAGS) $< -o $@ $(LIBS)
