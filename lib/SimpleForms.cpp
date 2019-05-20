@@ -1,4 +1,5 @@
 #include "SimpleForms.h"
+#include <math.h>
 void piramid(){
  glPushMatrix();
  for(int i=0;i<4;i++){
@@ -18,8 +19,12 @@ void piramid(){
 }
 void cube(double size,unsigned int* data){
 //	glPushMatrix();
+	double r,g,b;
 	for(int i=0;i<6;i++){
-		glColor3f(i%2*0.1,i%3*0.1,i%4*0.1);
+		r+=i;
+		g+=i*1.2;
+		b+=i*0.8;
+		glColor3f(sin(r),sin(g),sin(b));
 		glRotatef(90,i%2,!(i%2),0);
 		glPushMatrix();
 			glTranslatef(-size/2,-size/2,size/2);

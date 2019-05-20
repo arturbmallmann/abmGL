@@ -11,8 +11,6 @@
 #include <iostream>
 #include <math.h>
 #include <SimpleForms.h>
-//#include <AbstractPiece.h>
- // Constants to define the width/height of the window
 const int WIDTH = 500;
 const int HEIGHT = 500;
 
@@ -35,7 +33,7 @@ void display()
 	glRotatef(updateValue*20, 0.0f, 1.0f, 0.0f);
 	glCullFace(GL_BACK);
 	// Render a square using the informed color.
-	chessTable(0.3,8.0);
+			chessTable(0.3,8.0);
 	//piramid();
 	glPushMatrix();
 		glRotatef(-30*updateValue,0,1,0);
@@ -58,7 +56,6 @@ void update(double delta)
 void keyboard(unsigned char key, int x, int y)
 {
 	if (key == 27) {
-		// ESC key
 		exit(0);
 	}
 }
