@@ -16,22 +16,25 @@ void piramid(){
  }
  glPopMatrix();
 }
-
 void cube(double size,unsigned int* data){
-	glPushMatrix();
-	for(int i=0;i<4;i++){
-		glRotatef(90,1,0,0);
+//	glPushMatrix();
+	for(int i=0;i<6;i++){
+		glColor3f(i%2*0.1,i%3*0.1,i%4*0.1);
+		glRotatef(90,i%2,!(i%2),0);
 		glPushMatrix();
-			glTranslatef(-size/2,-size/2,-size/2);
+			glTranslatef(-size/2,-size/2,size/2);
 			glBegin(GL_QUADS);
-					glVertex2f(0,0);
 					glVertex2f(0,size);
-					glVertex2f(size,size);
+					glVertex2f(0,0);
 					glVertex2f(size,0);
+					glVertex2f(size,size);
 			glEnd();
+		if(data!=NULL){
+		//texturas aqui	
+		}
 		glPopMatrix();
 	}
-	glPopMatrix();
+//	glPopMatrix();
 }
 void chessTable(double scale,double chess_size){
  double color=0;

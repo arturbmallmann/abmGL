@@ -1,0 +1,8 @@
+Para compilar deve se garantir que o arquivo da minha biblioteca dinâmica esteja compilado tbm:
+cd ../lib
+$ make SimpleForms
+e depois na pasta Prova cubo:
+$ make
+
+e para executar sem problemas: 
+$ make test

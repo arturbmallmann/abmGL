@@ -5,6 +5,6 @@
 #include <GL/gl.h>
 
 void piramid();
-void cube(double);
+void cube(double,unsigned int *);
 void chessTable(double scale,double chess_size);
 #endif

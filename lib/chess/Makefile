@@ -10,6 +10,11 @@ all: Torre SimpleForms Position AbstractPiece
 Torre: Torre.o AbstractPiece.o
 	$(CC) $(CFLAGS) $< -shared -o libTorre.so $(LIBS)
 
+SimpleForms: SimpleForms.o
+	$(CC) $(CFLAGS) $< -shared -o libSimpleForms.so $(LIBS)
+
+Position: Position.o
+	$(CC) $(CFLAGS) $< -shared -o libPosition.so $(LIBS)
 
 #AbstractPiece: AbstractPiece.o 
 #	$(CC) $(CFLAGS) $< -shared -o lib$@.so $(LIBS)

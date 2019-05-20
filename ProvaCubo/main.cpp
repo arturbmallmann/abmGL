@@ -29,43 +29,14 @@ GLfloat gValueR = 0.0f;
 GLfloat gValueG = 0.0f;
 GLfloat gValueB = 0.0f;
 
-void renderCoordinateAxis()
-{
-	// X axis - green color
-	glColor3f(0, 1, 0);
-	glBegin(GL_LINES);
-		// Left side, negative X
-		glVertex2f(-100.0, 0.0);
-		glVertex2f(0.0, 0.0);
-
-		// Right side, positive X
-		glVertex2f(0.0, 0.0);
-		glVertex2f(100.0, 0.0);
-	glEnd();
-
-	// Y axis - blue color
-	glColor3f(0, 0, 1);
-	glBegin(GL_LINES);
-		// Top side, positive Y
-		glVertex2f(0.0, 0.0);
-		glVertex2f(0.0, 100.0);
-
-		// Bottom side, negative Y
-		glVertex2f(0.0, 0.0);
-		glVertex2f(0.0, -100.0);
-	glEnd();
-}
-
 void display()
 {
 	// Move the camera away from the origin along the Z axis by 10 pixels.
-	glTranslatef(0, 0, -10.0f);
+	glTranslatef(0, 0, -20.0f);
 
-
-	renderCoordinateAxis();
+	glRotatef(30, 1, 0,0);
 	glRotatef(gValueR*20, 0.0f, 1.0f, 0.0f);
-// Render the X and Y axis to guide ourselves.
-
+	glCullFace(GL_BACK);
 	// Render a square using the informed color.
 	GLfloat r = sin(gValueR);
 	GLfloat g = sin(gValueG);
@@ -74,8 +45,8 @@ void display()
 //	glRectf(-1.0f, 1.0f, 1.0f, -1.0f);
 //	glutWireTeapot(2);
 	chessTable(0.3,8.0);
-//	piramid();
-	cube(2.0f);
+	//piramid();
+	cube(2.0f,(unsigned int *)0); //O arquivo em que construi o cubo se encontra na pasta ../lib/
 }
 
 // This function is called periodically. The param delta contains the time
@@ -105,8 +76,11 @@ void internalDisplay()
 {
 	// Clear the screen painting it with the white color
 	glClearColor(1, 1, 1, 0);
-	glClear(GL_COLOR_BUFFER_BIT);
 
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	// Inform we want to make changes to the modelview matrix, starting
 	// with no transformation at all.
 	glMatrixMode(GL_MODELVIEW);
@@ -159,10 +133,12 @@ int main(int argc, char** argv)
 {
 	// Initialize GLUT
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH);
 	glutInitWindowSize(WIDTH, HEIGHT);
-	glutCreateWindow("Transformation - Simple");
-	
+	glutCreateWindow("Trabalho cubo");
+
+	glEnable(GL_CULL_FACE);
+
 	// Register a few callback functions
 	glutDisplayFunc(internalDisplay);
 	glutKeyboardFunc(keyboard);

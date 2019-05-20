@@ -1,5 +1,5 @@
 CC = g++
-MYLIBS = ../lib/chess
+MYLIBS = ../lib
 CFLAGS = -g -Wall -Wno-deprecated
 
 INCLUDES = -I$(MYLIBS)
