@@ -25,28 +25,26 @@ const unsigned int UPDATE_INTERVAL_MS = 1000 / FRAMES_PER_SECOND;
 int gTimeLastUpdateMs = 0;
 
 // Control the value of each color channel used to display a square.
-GLfloat gValueR = 0.0f;
-GLfloat gValueG = 0.0f;
-GLfloat gValueB = 0.0f;
-
+GLfloat updateValue = 0.0f;
 void display()
 {
 	// Move the camera away from the origin along the Z axis by 10 pixels.
 	glTranslatef(0, 0, -20.0f);
 
 	glRotatef(30, 1, 0,0);
-	glRotatef(gValueR*20, 0.0f, 1.0f, 0.0f);
+	glRotatef(updateValue*20, 0.0f, 1.0f, 0.0f);
 	glCullFace(GL_BACK);
 	// Render a square using the informed color.
-	GLfloat r = sin(gValueR);
-	GLfloat g = sin(gValueG);
-	GLfloat b = sin(gValueB);
-	glColor3f(r, g, b);
-//	glRectf(-1.0f, 1.0f, 1.0f, -1.0f);
-//	glutWireTeapot(2);
 	chessTable(0.3,8.0);
 	//piramid();
+	glPushMatrix();
+		glRotatef(-30*updateValue,0,1,0);
+		glTranslatef(0,0,10.0f);
+		glRotatef(-30*updateValue,0,1,0);
+		cube(2.0f,0);	
+	glPopMatrix();
 	cube(2.0f,(unsigned int *)0); //O arquivo em que construi o cubo se encontra na pasta ../lib/
+
 }
 
 // This function is called periodically. The param delta contains the time
@@ -54,9 +52,7 @@ void display()
 void update(double delta)
 {
 	// Update the color of the square based on the time
-	gValueR += (GLfloat)delta;
-	gValueG += (GLfloat)(delta * 1.3);
-	gValueB += (GLfloat)(delta * 1.5);
+	updateValue += (GLfloat)delta*2;
 }
 
 void keyboard(unsigned char key, int x, int y)
