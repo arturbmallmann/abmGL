@@ -1,0 +1,11 @@
+Exercício  1: faça um triângulo vermelho usando dados passsados da CPU para o vertex shader e depois para o fragment shader.
+
+Exercício 2: faça um triângulo que tenha 3 cores que aumentam e diminuem a intensidade ao longo do tempo.
+Dica: demo shader-uniform + shader-complex-date
+
+Exercício 3: faça um triângulo cujos pontos se movem levemente ao longo do tempo
+Dica: mexer no gl_Position do vertex shader(?)
+
+Exercício 4: faça um triangulo que tenha exatamente duas cores, divididos igualmente (sem interpolaçãomexer no gl_Position do vertex shader(?)
+
+Exercício 4: faça um triangulo que tenha exatamente duas cores, divididos igualmente (sem interpolação)
